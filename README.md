@@ -4,7 +4,7 @@ A lightweight Windows desktop utility for turning pasted multi-line text into de
 
 一个轻量的 Windows 桌面工具，用来把粘贴的多行文本快速转换为可直接使用的分隔格式。
 
-**Download EXE / 下载 EXE:** [TextDelimiterTool.exe](https://github.com/ALiang0918/text-delimiter-tool/releases/download/v1.0.0/TextDelimiterTool.exe)
+**Download EXE / 下载 EXE:** [TextDelimiterTool.exe](https://github.com/ALiang0918/text-delimiter-tool/releases/latest/download/TextDelimiterTool.exe)
 
 ## Preview | 界面预览
 
