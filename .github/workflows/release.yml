@@ -1,0 +1,68 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Validate tag matches VERSION
+        shell: pwsh
+        run: |
+          $tag = "${{ github.ref_name }}"
+          if (-not $tag.StartsWith('v')) {
+            throw "Release tag must start with 'v'. Got: $tag"
+          }
+
+          $tagVersion = $tag.Substring(1)
+          $fileVersion = (Get-Content VERSION -Raw).Trim()
+
+          if ([string]::IsNullOrWhiteSpace($fileVersion)) {
+            throw "VERSION file is empty."
+          }
+
+          if ($tagVersion -ne $fileVersion) {
+            throw "Tag version '$tagVersion' does not match VERSION '$fileVersion'."
+          }
+
+      - name: Install PyInstaller
+        shell: pwsh
+        run: python -m pip install pyinstaller
+
+      - name: Run formatter tests
+        shell: pwsh
+        run: |
+          $env:PYTHONPATH = 'src'
+          python -m unittest tests.test_formatter -v
+
+      - name: Run version tests
+        shell: pwsh
+        run: |
+          $env:PYTHONPATH = 'src'
+          python -m unittest tests.test_version -v
+
+      - name: Build Windows executable
+        shell: pwsh
+        run: powershell -ExecutionPolicy Bypass -File .\scripts\build.ps1 -Clean
+
+      - name: Publish GitHub release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Text Delimiter Tool ${{ github.ref_name }}
+          files: dist/TextDelimiterTool.exe
+          generate_release_notes: true

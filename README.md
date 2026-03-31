@@ -181,6 +181,11 @@ dist\TextDelimiterTool.exe
 4. 在构建机上手动启动一次新生成的 `exe`。
 5. 用新文件替换此前分发过的旧版本可执行文件。
 
+### GitHub Actions Release | GitHub Actions 自动发布
+
+After implementation, pushing a tag such as `v1.0.1` will trigger GitHub Actions to validate the version, run tests, build `TextDelimiterTool.exe`, and upload it to the matching GitHub Release.
+
+实现后，推送 `v1.0.1` 这类 tag 会自动触发 GitHub Actions 校验版本、运行测试、构建 `TextDelimiterTool.exe`，并上传到对应的 GitHub Release。
 ### Build Script Notes | 打包说明
 
 - `assets\app.ico` is used automatically when present
