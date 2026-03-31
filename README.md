@@ -4,6 +4,11 @@ A lightweight Windows desktop utility for turning pasted multi-line text into de
 
 一个轻量的 Windows 桌面工具，用来把粘贴的多行文本快速转换为可直接使用的分隔格式。
 
+## Preview | 界面预览
+
+![Text Delimiter Tool main window](assets/screenshots/app-main.png)
+
+
 ## Why This Tool | 这个工具解决什么问题
 
 When you copy a single column of values from SQL results, Excel, or other tabular data, you often need to convert it into a format such as `1,`, `'1',`, or custom wrapped lines.
